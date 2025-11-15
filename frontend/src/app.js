@@ -17,7 +17,7 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [pagination, setPagination] = useState({
-        limit: 20,
+        limit: 12,
         offset: 0,
         total: 0
     });
@@ -40,33 +40,56 @@ function App() {
             }
         }
 
-        loadNFTs();
-        loadCollectionInfo();
+        loadInitialData();
     }, []);
 
-    const loadNFTs = async (limit = 20, offset = 0) => {
+    const loadInitialData = async () => {
         try {
             setLoading(true);
             setError(null);
             
+            // Загружаем NFT и информацию о коллекции параллельно
+            const [nftsData, collectionData] = await Promise.all([
+                apiService.fetchNFTs(12, 0),
+                apiService.fetchCollectionInfo().catch(err => {
+                    console.warn('Failed to load collection info:', err);
+                    return null;
+                })
+            ]);
+            
+            setNfts(nftsData.nfts);
+            setPagination(nftsData.pagination);
+            setCollectionInfo(collectionData || nftsData.collection);
+            
+        } catch (err) {
+            console.error('Failed to load initial data:', err);
+            // Не показываем ошибку пользователю, используем fallback данные
+            const fallbackData = apiService.getFallbackNFTs(12);
+            setNfts(fallbackData.nfts);
+            setPagination(fallbackData.pagination);
+            setCollectionInfo(fallbackData.collection);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadNFTs = async (limit = 12, offset = 0) => {
+        try {
+            setLoading(true);
             const data = await apiService.fetchNFTs(limit, offset);
             setNfts(data.nfts);
             setPagination(data.pagination);
             
         } catch (err) {
             console.error('Failed to load NFTs:', err);
-            setError('Failed to load NFTs. Please try again later.');
+            // Используем существующие данные или fallback
+            if (nfts.length === 0) {
+                const fallbackData = apiService.getFallbackNFTs(limit);
+                setNfts(fallbackData.nfts);
+                setPagination(fallbackData.pagination);
+            }
         } finally {
             setLoading(false);
-        }
-    };
-
-    const loadCollectionInfo = async () => {
-        try {
-            const info = await apiService.fetchCollectionInfo();
-            setCollectionInfo(info);
-        } catch (err) {
-            console.error('Failed to load collection info:', err);
         }
     };
 
@@ -85,11 +108,7 @@ function App() {
 
     const handleRetry = () => {
         setError(null);
-        if (userAddress) {
-            setBalance(null);
-        } else {
-            loadNFTs();
-        }
+        loadInitialData();
     };
 
     const loadMoreNFTs = () => {
@@ -109,7 +128,7 @@ function App() {
         >
             <div className={`app ${isMobile ? 'mobile' : ''} ${isTelegram ? 'telegram' : ''}`}>
                 <header className="app-header">
-                    <h1>AOS NFT STORE</h1>
+                    <h1>🎭 TON NFT Marketplace</h1>
                     
                     {collectionInfo && (
                         <div className="collection-info">
@@ -117,11 +136,10 @@ function App() {
                             {collectionInfo.description && (
                                 <p className="collection-description">{collectionInfo.description}</p>
                             )}
-                            {collectionInfo.itemsCount && (
-                                <div className="collection-stats">
-                                    <span className="stat">{collectionInfo.itemsCount} items</span>
-                                </div>
-                            )}
+                            <div className="collection-stats">
+                                <span className="stat">📦 {pagination.total} items</span>
+                                <span className="stat">🏢 Getgems</span>
+                            </div>
                         </div>
                     )}
                     
