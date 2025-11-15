@@ -1,7 +1,7 @@
 {
-    "url": "https://ton-nft-frontend.onrender.com",
+    "url": "https://ton-nft-frontend-test.onrender.com",
     "name": "TON NFT Marketplace",
-    "iconUrl": "https://ton-nft-frontend.onrender.com/icon.png",
-    "termsOfUseUrl": "https://ton-nft-frontend.onrender.com/terms.html",
-    "privacyPolicyUrl": "https://ton-nft-frontend.onrender.com/privacy.html"
+    "iconUrl": "https://ton-nft-frontend-test.onrender.com/icon.png",
+    "termsOfUseUrl": "https://ton-nft-frontend-test.onrender.com/terms.html",
+    "privacyPolicyUrl": "https://ton-nft-frontend-test.onrender.com/privacy.html"
 }

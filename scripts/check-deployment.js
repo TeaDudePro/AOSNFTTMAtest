@@ -1,8 +1,8 @@
 const https = require('https');
 
 const services = {
-    backend: 'https://ton-nft-backend.onrender.com/health',
-    frontend: 'https://ton-nft-frontend.onrender.com'
+    backend: 'https://ton-nft-backend-test.onrender.com/health',
+    frontend: 'https://ton-nft-frontend-test.onrender.com'
 };
 
 async function checkService(name, url) {

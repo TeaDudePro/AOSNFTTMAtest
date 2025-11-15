@@ -1,10 +1,10 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // Замените на ваш токен
-const token = process.env.BOT_TOKEN || '8271130872:AAFTFFG34L8op_gXR4_VettjAZbxnf93EPs';
+const token = process.env.BOT_TOKEN || '7893850735:AAHkm_Z3hJ1z3Nj2oaczOKBkeidp6TT8MeE';
 const bot = new TelegramBot(token, { polling: true });
 
-const frontendUrl = 'https://ton-nft-frontend.onrender.com';
+const frontendUrl = 'https://ton-nft-frontend-test.onrender.com';
 
 async function setupBot() {
     try {
