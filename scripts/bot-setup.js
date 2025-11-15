@@ -1,0 +1,16 @@
+const TelegramBot = require('node-telegram-bot-api');
+
+const token = '8271130872:AAFTFFG34L8op_gXR4_VettjAZbxnf93EPs';
+const bot = new TelegramBot(token, { polling: true });
+
+bot.on('message', (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Добро пожаловать в NFT маркетплейс! Используйте кнопку меню для запуска.', {
+        reply_markup: {
+            keyboard: [[{ text: "🎭 Open Marketplace", web_app: { url: "https://your-app.vercel.app" } }]],
+            resize_keyboard: true
+        }
+    });
+});
+
+console.log('Bot is running...');

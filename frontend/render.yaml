@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ton-nft-frontend
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://ton-nft-backend.onrender.com

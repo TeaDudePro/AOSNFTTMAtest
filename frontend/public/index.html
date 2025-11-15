@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TON NFT Marketplace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0088cc">
+    <meta name="description" content="Buy and sell NFTs with TON cryptocurrency on Telegram">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TON NFT Marketplace">
+    <meta property="og:description" content="Buy and sell NFTs with TON cryptocurrency">
+    <meta property="og:type" content="website">
+    
+    <!-- Telegram Web App специфичные мета-теги -->
+    <meta name="telegram:theme" content="dark">
+    <meta name="telegram:button" content="Open Marketplace">
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <style>
+        /* Предзагрузка критичных стилей */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+        }
+        
+        /* Предотвращение выделения текста на тач-устройствах */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        /* Разрешить выделение для текстовых элементов */
+        p, h1, h2, h3, span {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
